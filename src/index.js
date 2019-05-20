@@ -241,7 +241,8 @@ export default class Swiper extends React.Component {
             </Animated.View>}
           {(showDots || showNextPrev) && <View style={[styles.controlsWrapperStyle, {
             flexDirection: direction,
-          }, direction === "row" ? { left: 0 } : { top: 0 }, controlsWrapperStyle]}>
+          }, direction === "row" ? { left: 0 } : { top: 0 }, showNextPrev ? { justifyContent: 'space-between' } : { justifyContent: 'center' },
+           controlsWrapperStyle]}>
             {showNextPrev && <View style={{ opacity: !activeIndex ? overRangeButtonsOpacity : 1 }}>
               <TouchableOpacity disabled={!activeIndex && !loop} onPress={() => this.moveUpDown(true)}>
                 {prevButtonElement || <Text style={[styles.prevButtonStyle, prevButtonStyle]}>{prevButtonText}</Text>}
