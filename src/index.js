@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
 export default class Swiper extends React.Component {
   constructor(props) {
     super(props);
-
+    this.getCurrentIndex = this.getCurrentIndex.bind(this);
     this.state = {
       width: 0,
       height: 0,
@@ -101,6 +101,10 @@ export default class Swiper extends React.Component {
         this._changeIndex(correction > 0 ? -1 : 1);
       }
     });
+  }
+
+  getCurrentIndex() {
+    return this.state.activeIndex;
   }
 
   componentDidMount() {
@@ -241,7 +245,9 @@ export default class Swiper extends React.Component {
             </Animated.View>}
           {(showDots || showNextPrev) && <View style={[styles.controlsWrapperStyle, {
             flexDirection: direction,
-          }, direction === "row" ? { left: 0 } : { top: 0 }, controlsWrapperStyle]}>
+          }, direction === "row" ? { left: 0 } : { top: 0 },
+          showNextPrev ? { justifyContent: 'space-between' } : { justifyContent: 'center' },
+            controlsWrapperStyle]}>
             {showNextPrev && <View style={{ opacity: !activeIndex ? overRangeButtonsOpacity : 1 }}>
               <TouchableOpacity disabled={!activeIndex && !loop} onPress={() => this.moveUpDown(true)}>
                 {prevButtonElement || <Text style={[styles.prevButtonStyle, prevButtonStyle]}>{prevButtonText}</Text>}
