@@ -94,7 +94,7 @@ export default class Swiper extends React.Component {
         const correction = this.props.direction === "row" ? gesture.moveX - gesture.x0 : gesture.moveY - gesture.y0;
         this.startAutoplay();
         if (Math.abs(correction) < ((this.props.direction === "row" ? this.state.width : this.state.height) * this.props.actionMinWidth))
-          return Animated.spring(this.state.pan, { toValue: { x: 0, y: 0 } }).start(() => {
+          return Animated.spring(this.state.pan, { toValue: { x: 0, y: 0 }, bounciness: props.rebound }).start(() => {
             if (this.props.onAnimationEnd)
               this.props.onAnimationEnd(this.state.activeIndex);
           });
@@ -159,7 +159,7 @@ export default class Swiper extends React.Component {
       calcDelta = -1 * this.state.activeIndex + delta - 1;
     }
     if (skipChanges)
-      return Animated.spring(this.state.pan, { toValue: move }).start(() => {
+      return Animated.spring(this.state.pan, { toValue: move, bounciness: this.props.rebound }).start(() => {
         if (this.props.onAnimationEnd)
           this.props.onAnimationEnd(this.state.activeIndex);
       });
@@ -170,7 +170,7 @@ export default class Swiper extends React.Component {
       move.x = this.state.width * -1 * calcDelta;
     else
       move.y = this.state.height * -1 * calcDelta;
-    Animated.spring(this.state.pan, { toValue: move }).start(() => {
+    Animated.spring(this.state.pan, { toValue: move, bounciness: this.props.rebound }).start(() => {
       if (this.props.onAnimationEnd)
         this.props.onAnimationEnd(index);
     });
@@ -302,10 +302,12 @@ Swiper.propTypes = {
   nextButtonText: PropTypes.string,
   scrollEnabled: PropTypes.bool,
   showDots: PropTypes.bool,
-  showNextPrev: PropTypes.bool
+  showNextPrev: PropTypes.bool,
+  rebound: PropTypes.number
 };
 
 Swiper.defaultProps = {
+  rebound: 0,
   direction: "row",
   index: 0,
   actionMinWidth: 0.25,

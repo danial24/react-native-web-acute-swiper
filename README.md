@@ -6,6 +6,8 @@ You can find the docs for the available props from the link given above. There a
 
 ### **Additional Props**:
 
+**rebound**(_number_): This will handle the bounciness or rebound behavior of swiper. The default value is 0.
+
 **scrollEnabled**(_boolean_): This will block the transition on swipe.
 
 **showDots**(_boolean_): This will control the visibilty of bottom navigation dots View.
